@@ -1,0 +1,93 @@
+Git and github Interview questions---real time scenario
+
+1) How will you know in GIT if a branch has been already merged into master?
+
+   - git branch --merged master---lists branches merged into master
+   - git branch --merged ---lists branches merged into head
+   - git branch --no-merged----lists branches that have not been merged
+   - By default this applies to only the local branches. The -a flag will show both 
+     local and remote branches, and -r flag shows only the remote branches
+
+    OR
+
+   - we can use git merge-base command to find the latest common commit between
+     the two branches. If that commit is the same as your branch head, then the 
+     branch has been completely merged.
+
+2) How can you bring a new feature in the main beanch?
+
+   - To bring a new feature in the main branch, we can use a command git merge
+     or git pull command 
+
+3) I want to delete Branch both locally and remotely? How can you do that?
+    
+     To delete the local branch use one of the following
+
+   - $git branch -d<branch name>
+   - $git branch -D<branch name>
+     The -d option is an alias for --delete, which only deletes the branch id it
+     has already been fully merged in its upsream branch 
+
+     delete remote branch, we can use the following
+    
+   - $git push<remote name> --delete<branch name> 
+
+4) What is the difference between git remote and git clone ?
+   
+   - "Git remote add" just creates an entry in your git config that specifies a name for a
+      particular URL. While, 'git clone' cretaes a new git repository by copying and
+      exsitng one located at the URI
+   
+   - "Git clone"
+      Will physically download the files in our computer. It will take space from our computer
+      If the repo is 200mb, then it will download that all and place it in the directory we cloned
+   - "Git remote add" 
+      It won't take space! It's more like pointer! It doesn't increase our dick consumption. 
+      It gets a snapshot of what branches are available and their git commit history. It doesn't 
+      contain actual files/folders of our project
+
+5) How can we fix a broken commit?
+   - To fix any broken commit, you will use the command " git commit--amend". running this command,
+     we can fix the broken commit message in the editor
+
+6) Why is it advisable to create an additional commit rather than amending an exsting commit?
+   - There are couple of reason
+     The amend operation will destroy the state that was previously saved ina commit. If its just
+     the commit message being changed then that's not an issue. but if the conents are being amended
+     then chances of eliminating something important remains more
+   - Abusing "git commit-amend" can cause a small commit to grow and acquire 
+     unrelated changes
+
+7) Can you tell me layman terminologies difference between git and github?
+   
+   - Git is a revison control system, a tool to manage your source code history
+   - Github is a hosting servce for git repositories
+   - Github is website where you can upload a copy of your git repository. It is a Git repository hosting 
+     service, which offers all of the distributed version control and source code management(SCM) functionality 
+     of Git as well as adding its own features
+
+8) how do you find a lsit of files that has changed in a particular commit?
+  
+   - git diff-tree -r{hash}
+    
+     Given the commit hash, this will list all the files that were changed or added in that commit.
+     The -r flag makes the command list individual files, rather than collapsing them into root
+     directory names only
+     The output will also include some extra information, which can be easily suppressed by 
+     including a couple of flags
+ 
+   - git diff-tree --no-commit-id --name-only -r{hash}
+     
+     Here --no-commit-id will suppress the commit hashes from from appearing in the output, and --
+     name-only will only print the file names, instead of their paths
+
+9) One of your teammates accidentally deleted a branch, and has already pushed the changes to the 
+   central git repo. There are no other git repos, and none of your other teammates
+   had a local copy. How would you recover this branch?
+   
+   Checkout the latest commit to this branch in the reflog using command like
+  
+   $ git reflog
+   
+   and then check it out as a new branch using command like
+   $ git checkout -b branch-name 
