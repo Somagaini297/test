@@ -1,2 +1,6 @@
 this is fourth file for git
+<<<<<<< HEAD
 this is telenagana
+=======
+telangana cm is kcr
+>>>>>>> d9dbc02789390a708b77b1912aa50698cfde8ea3
